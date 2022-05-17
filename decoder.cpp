@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     FILE *file = fopen(argv[1], "r");
     Tree *tree = new Tree();
     Tree::read(tree, file);
-    std::cout << tree << std::endl;
+    fclose(file);
 
     Mat output = Tree::decompress(tree, argv[3]);
 
@@ -20,5 +20,4 @@ int main(int argc, char **argv) {
     imwrite(argv[2], output, params);
 
     delete tree;
-    delete file;
 }

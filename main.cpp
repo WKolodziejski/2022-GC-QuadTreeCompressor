@@ -1,4 +1,3 @@
-#include <cstdio>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
@@ -52,9 +51,12 @@ int main(int argc, char **argv) {
     int block = atoi(argv[4]);
 
     Tree *tree = Tree::compress(&img, threshold, block);
-    FILE *file = fopen(argv[2], "w");
-    Tree::save(tree, file);
-    fclose(file);
+    Mat output = Tree::decompress(tree, argv[5]);
+
+    vector<int> params;
+    params.push_back(cv::IMWRITE_PNG_COMPRESSION);
+    params.push_back(0);
+    imwrite(argv[2], output, params);
 
     delete tree;
 }

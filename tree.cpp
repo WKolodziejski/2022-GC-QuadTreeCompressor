@@ -9,7 +9,7 @@ using namespace std;
 Tree::Tree() = default;
 
 Tree *Tree::compress(Mat *img, int threshold, int block) {
-    return _compress(img, 0, 0, img->cols, img->rows, threshold * threshold, block);
+    return _compress(img, 0, 0, img->cols, img->rows, threshold * threshold * img->cols, block);
 }
 
 Mat Tree::decompress(Tree *tree, bool grid) {
@@ -46,7 +46,7 @@ Tree *Tree::_compress(Mat *img, int x, int y, int cols, int rows, int threshold,
     tree->rgb[1] = g;
     tree->rgb[2] = r;
 
-    auto mean = 0;
+    unsigned long long mean = 0;
 
     for (auto i = y; i < y + cols; i++)
         for (auto j = x; j < x + rows; j++) {
@@ -54,12 +54,8 @@ Tree *Tree::_compress(Mat *img, int x, int y, int cols, int rows, int threshold,
             auto mg = img->at<Vec3b>(i, j)[1];
             auto mr = img->at<Vec3b>(i, j)[2];
 
-            mean += ((b - mb) * (b - mb))
-                    + ((g - mg) * (g - mg))
-                    + ((r - mr) * (r - mr));
+            mean += (((b - mb) * (b - mb)) + ((g - mg) * (g - mg)) + ((r - mr) * (r - mr)) / (3 * area));
         }
-
-    mean /= (3 * area);
 
     if (mean > threshold) {
         auto c = cols / 2;
