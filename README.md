@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="/img/ufpel.png" width="400">
+  <img src="/img/output.png" width="400">
+</p>
+
 # Compress:
 ````
 ./enc <input-file> <output-bitstream> <compress level (0 - 100)> <max-block-size>
