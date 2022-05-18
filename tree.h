@@ -9,9 +9,9 @@ using namespace cv;
 
 class Tree {
 private:
-    int rgb[3];
-    int cols, rows;
-    int x, y;
+    unsigned char rgb[3];
+    unsigned int cols, rows; //can be stored as char if value >> 2, since it's a power of 2
+    unsigned int x, y;
 
     Tree *tl = nullptr;
     Tree *tr = nullptr;
@@ -28,14 +28,6 @@ public:
     static void read(Tree *tree, FILE *file);
 
     Tree();
-//    ~Tree() {
-//        delete this->tl;
-//        delete this->tr;
-//        delete this->bl;
-//        delete this->br;
-//        delete this;
-//    }
 };
 
-
-#endif //QUAD_TREE_H
+#endif

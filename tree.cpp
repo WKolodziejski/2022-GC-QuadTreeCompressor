@@ -1,6 +1,5 @@
 #include "tree.h"
 #include <iostream>
-#include <fstream>
 #include <vector>
 
 using namespace cv;
